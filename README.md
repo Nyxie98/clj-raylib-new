@@ -30,7 +30,8 @@ Clojure bidings to the awesome [raylib](https://www.raylib.com/) library
 
 To run the examples, clone this folder and run with:
 ```bash
-lein run -m input-mouse/-main
+cd examples
+lein run -m examples.input-mouse/-main
 ```
 And change the namespace to the accoding example you want.
 
