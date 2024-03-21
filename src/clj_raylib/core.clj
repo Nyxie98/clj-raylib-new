@@ -452,6 +452,10 @@
   []
   (Raylib/IsWindowMinimized))
 
+(defn is-window-maximized?
+  []
+  (Raylib/IsWindowMaximized))
+
 (defn is-window-resized?
   []
   (Raylib/IsWindowResized))
@@ -464,21 +468,49 @@
   []
   (Raylib/IsWindowFullscreen))
 
-(defn toggle-fullscreen!
+(defn is-window-focused?
+  []
+  (Raylib/IsWindowFocused))
+
+(defn is-window-state?
+  [flag]
+  (Raylib/IsWindowState flag))
+  
+(defn set-window-state!
+  [flags]
+  (Raylib/SetWindowState flags))
+
+(defn clear-window-state!
+  [flags]
+  (Raylib/ClearWindowState flags))
+
+(defn toggle-fullscreen
   []
   (Raylib/ToggleFullscreen))
 
-(defn unhide-window!
+(defn toggle-borderless-windowed
   []
-  (Raylib/UnhideWindow))
+  (Raylib/ToggleBorderlessWindowed))
 
-(defn hide-window!
+(defn maximize-window
   []
-  (Raylib/HideWindow))
+  (Raylib/MaximizeWindow))
+
+(def minimize-window
+  []
+  (Raylib/MinimizeWindow))
+
+(defn restore-window
+  []
+  (Raylib/RestoreWindow))
 
 (defn set-window-icon!
   [img]
   (Raylib/SetWindowIcon (Image$ByValue. img)))
+
+(defn set-window-icons!
+  [imgs count]
+  (Raylib/SetWindowIcons (Image$ByReference. imgs) count))
 
 (defn set-window-title!
   [title]
@@ -496,9 +528,21 @@
   [w h]
   (Raylib/SetWindowMinSize w h))
 
+(defn set-window-max-size!
+  [w h]
+  (Raylib/SetWindowMaxSize w h))
+
 (defn set-window-size!
   [w h]
   (Raylib/SetWindowSize w h))
+
+(defn set-window-opacity!
+  [opacity]
+  (Raylib/SetWindowOpacity opacity))
+
+(defn set-window-focused!
+  []
+  (Raylib/SetWindowFocused))
 
 (defn get-window-handle
   []
@@ -512,9 +556,25 @@
   []
   (Raylib/GetScreenHeight))
 
+(defn get-render-width
+  []
+  (Raylib/GetRenderWidth))
+
+(defn get-render-height
+  []
+  (Raylib/GetRenderHeight))
+
 (defn get-monitor-count
   []
   (Raylib/GetMonitorCount))
+
+(defn get-current-monitor
+  []
+  (Raylib/GetCurrentMonitor))
+
+(defn get-monitor-position
+  [monitor]
+  (Raylib/GetMonitorPosition monitor))
 
 (defn get-monitor-width
   [monitor]
@@ -523,6 +583,10 @@
 (defn get-monitor-height
   [monitor]
   (Raylib/GetMonitorHeight monitor))
+
+(defn get-monitor-refresh-rate
+  [monitor]
+  (Raylib/GetMonitorRefreshRate monitor))
 
 (defn get-monitor-physical-width
   [monitor]
@@ -536,6 +600,10 @@
   []
   (Raylib/GetWindowPosition))
 
+(defn get-window-scale-dpi
+  []
+  (Raylib/GetWindowScaleDPI))
+
 (defn get-monitor-name
   [monitor]
   (Raylib/GetMonitorName monitor))
@@ -547,6 +615,14 @@
 (defn set-clipboard-text!
   [txt]
   (Raylib/SetClipboardText txt))
+
+(defn enable-event-waiting!
+  []
+  (Raylib/EnableEventWaiting))
+
+(defn disable-event-waiting!
+  []
+  (Raylib/DisableEventWaiting))
 
 (defn show-cursor!
   []
@@ -607,9 +683,11 @@
      ~@body
      (Raylib/EndScissorMode)))
 
-(defn get-mouse-ray
-  [mouse-pos camera3d]
-  (Raylib/GetMouseRay (Vector2$ByValue. mouse-pos) (Camera3D$ByValue. camera3d)))
+(defn get-screen-to-world-ray
+  ([vector2 camera3d]
+    (Raylib/GetScreenToWorldRay (Vector2$ByValue. vector2) (Camera3D$ByValue. camera3d)))
+  ([vector2 camera3d w h]
+    (Raylib/GetScreenToWorldRayEx (Vector2$ByValue. vector2) (Camera3D$ByValue. camera3d) w h)))
 
 (defn get-camera-matrix
   [camera3d]
@@ -685,9 +763,9 @@
   [log-type]
   (Raylib/SetTraceLogLevel log-type))
 
-(defn set-trace-log-exit!
-  [log-type]
-  (Raylib/SetTraceLogExit log-type))
+; (defn set-trace-log-exit!
+;   [log-type]
+;   (Raylib/SetTraceLogExit log-type))
 
 (defn take-screenshot!
   [filename]
@@ -725,9 +803,9 @@
   [gamepad]
   (Raylib/IsGamepadAvailable gamepad))
 
-(defn is-gamepad-name?
-  [gamepad name]
-  (Raylib/IsGamepadName gamepad name))
+; (defn is-gamepad-name?
+;   [gamepad name]
+;   (Raylib/IsGamepadName gamepad name))
 
 (defn get-gamepad-name
   [gamepad]
@@ -829,9 +907,9 @@
   []
   (Raylib/GetGestureDetected))
 
-(defn get-touch-points-count
+(defn get-touch-point-count
   []
-  (Raylib/GetTouchPointsCount))
+  (Raylib/GetTouchPointCount))
 
 (defn get-gesture-hold-duration
   []
@@ -853,31 +931,34 @@
   []
   (Raylib/GetGesturePinchAngle))
 
-(defn set-camera-mode!
-  [camera3d mode]
-  (Raylib/SetCameraMode (Camera3D$ByValue. camera3d) mode))
+; (defn set-camera-mode!
+;   [camera3d mode]
+;   (Raylib/SetCameraMode (Camera3D$ByValue. camera3d) mode))
 
 (defn update-camera!
-  [camera3d]
+  ([camera3d]
   (let [camera-by-ref (Camera3D$ByReference. camera3d)]
     (Raylib/UpdateCamera camera-by-ref)
     camera-by-ref))
+  ([camera3d mode]
+  (let [camera-by-ref (Camera3D$ByReference. camera3d)]
+    (Raylib/UpdateCamera camera-by-ref mode))))
 
-(defn set-camera-pan-control!
-  [k]
-  (Raylib/SetCameraPanControl k))
+; (defn set-camera-pan-control!
+;   [k]
+;   (Raylib/SetCameraPanControl k))
 
-(defn set-camera-alt-control!
-  [k]
-  (Raylib/SetCameraAltControl k))
+; (defn set-camera-alt-control!
+;   [k]
+;   (Raylib/SetCameraAltControl k))
 
-(defn set-camera-smooth-zoom-control!
-  [k]
-  (Raylib/SetCameraSmoothZoomControl k))
+; (defn set-camera-smooth-zoom-control!
+;   [k]
+;   (Raylib/SetCameraSmoothZoomControl k))
 
-(defn set-camera-move-controls!
-  [front-key back-key right-key left-key up-key down-key]
-  (Raylib/SetCameraMoveControls front-key back-key right-key left-key up-key down-key))
+; (defn set-camera-move-controls!
+;   [front-key back-key right-key left-key up-key down-key]
+;   (Raylib/SetCameraMoveControls front-key back-key right-key left-key up-key down-key))
 
 (defn draw-pixel!
   ([posx posy color]
@@ -1041,9 +1122,9 @@
   ;[pixels w h]
   ;(Raylib/LoadImageEx (Color$ByReference. pixels) w h))
 
-(defn load-image-pro!
-  [data width height format]
-  (Raylib/LoadImagePro data width height format))
+; (defn load-image-pro!
+;   [data width height format]
+;   (Raylib/LoadImagePro data width height format))
 
 (defn load-image-raw!
   [filename w h format header-size]
@@ -1061,25 +1142,25 @@
   [img filename]
   (Raylib/ExportImageAsCode (Image$ByValue. img) filename))
 
-(defn get-image-data
+(defn load-image-colors
   [img]
-  (Raylib/GetImageData (Image$ByValue. img)))
+  (Raylib/LoadImageColors (Image$ByValue. img)))
 
-(defn get-image-data-normalized
-  [img]
-  (Raylib/GetImageDataNormalized (Image$ByValue. img)))
+; (defn get-image-data-normalized
+;   [img]
+;   (Raylib/GetImageDataNormalized (Image$ByValue. img)))
 
 (defn gen-image-color
   [w h color]
   (Raylib/GenImageColor w h (Color$ByValue. color)))
 
-(defn gen-image-gradient-v
-  [w h top bottom]
-  (Raylib/GenImageGradientV w h (Color$ByValue. top) (Color$ByValue. bottom)))
+; (defn gen-image-gradient-v
+;   [w h top bottom]
+;   (Raylib/GenImageGradientV w h (Color$ByValue. top) (Color$ByValue. bottom)))
 
-(defn gen-image-gradient-h
-  [w h left right]
-  (Raylib/GenImageGradientH w h (Color$ByValue. left) (Color$ByValue. right)))
+; (defn gen-image-gradient-h
+;   [w h left right]
+;   (Raylib/GenImageGradientH w h (Color$ByValue. left) (Color$ByValue. right)))
 
 (defn gen-image-gradient-radial
   [w h density inner outer]
@@ -1249,10 +1330,10 @@
     (Raylib/ImageColorReplace new-img (Color$ByValue. color) (Color$ByValue. color))
     new-img))
 
-(defn image-extract-pallete
+(defn Load-image-pallete
   [img maxpalettesize]
   (let [^IntByReference int-ref (IntByReference.)
-        ans (Raylib/ImageExtractPalette (Image$ByValue. img) maxpalettesize int-ref)]
+        ans (Raylib/LoadImagePalette (Image$ByValue. img) maxpalettesize int-ref)]
     [ans (long (.getValue int-ref))]))
 
 (defn get-image-alpha-border
@@ -1359,13 +1440,13 @@
   [texture pixels]
   (Raylib/UpdateTexture (Texture2D$ByValue. texture) pixels))
 
-(defn get-texture-data
+(defn load-image-from-texture
   [texture]
-  (Raylib/GetTextureData (Texture2D$ByValue. texture)))
+  (Raylib/LoadImageFromTexture (Texture2D$ByValue. texture)))
 
-(defn get-screen-data
+(defn load-image-from-screen
   []
-  (Raylib/GetScreenData))
+  (Raylib/LoadImageFromScreen))
 
 (defn gen-texture-mipmaps
   [texture]
@@ -1393,10 +1474,10 @@
   [texture sourcerec position tint]
   (Raylib/DrawTextureRec (Texture2D$ByValue. texture) (Rectangle$ByValue. sourcerec) (Vector2$ByValue. position) (Color$ByValue. tint)))
 
-(defn draw-texture-quad!
-  [texture tiling offset quad tint]
-  (Raylib/DrawTextureQuad (Texture2D$ByValue. texture) (Vector2$ByValue. tiling) (Vector2$ByValue. offset) 
-                          (Rectangle$ByValue. quad) (Color$ByValue. tint)))
+; (defn draw-texture-quad!
+;   [texture tiling offset quad tint]
+;   (Raylib/DrawTextureQuad (Texture2D$ByValue. texture) (Vector2$ByValue. tiling) (Vector2$ByValue. offset) 
+;                           (Rectangle$ByValue. quad) (Color$ByValue. tint)))
 
 (defn draw-texture-pro!
   [texture sourcerec destrec origin rotation tint]
@@ -1441,12 +1522,12 @@
   ([text posx posy size color]
    (Raylib/DrawText text posx posy size color))
   ([font text position fontsize spacing tint]
-   (Raylib/DrawTextEx (Font$ByValue. font) text (Vector2$ByValue. position) fontsize spacing (Color$ByValue. tint)))
-  ([font text rec fontsize spacing wordwrap tint]
-   (Raylib/DrawTextRec (Font$ByValue. font) text (Rectangle$ByValue. rec) fontsize spacing (boolean wordwrap) (Color$ByValue. tint)))
-  ([font text rec fontsize spacing wordwrap tint selectstart selectlength selecttint selectbacktint]
-   (Raylib/DrawTextRecEx (Font$ByValue. font) text (Rectangle$ByValue. rec) fontsize spacing (boolean wordwrap) (Color$ByValue. tint)
-                         selectstart selectlength (Color$ByValue. selecttint) (Color$ByValue. selectbacktint))))
+   (Raylib/DrawTextEx (Font$ByValue. font) text (Vector2$ByValue. position) fontsize spacing (Color$ByValue. tint))))
+  ; ([font text rec fontsize spacing wordwrap tint]
+  ;  (Raylib/DrawTextRec (Font$ByValue. font) text (Rectangle$ByValue. rec) fontsize spacing (boolean wordwrap) (Color$ByValue. tint)))
+  ; ([font text rec fontsize spacing wordwrap tint selectstart selectlength selecttint selectbacktint]
+  ;  (Raylib/DrawTextRecEx (Font$ByValue. font) text (Rectangle$ByValue. rec) fontsize spacing (boolean wordwrap) (Color$ByValue. tint)
+  ;                        selectstart selectlength (Color$ByValue. selecttint) (Color$ByValue. selectbacktint))))
 
 (defn draw-text-codepoint!
   [font codepoint position scale tint]
@@ -1463,21 +1544,21 @@
   (Raylib/GetGlyphIndex (Font$ByValue. font) codepoint))
 
 
-(defn get-codepoints
+(defn load-codepoints
   [text count]
-  (Raylib/GetCodepoints text count))
+  (Raylib/LoadCodepoints text count))
 
-(defn get-codepoints-count
+(defn get-codepoint-count
   [text]
-  (Raylib/GetCodepointsCount text))
+  (Raylib/GetCodepointCount text))
 
-(defn get-next-codepoint
-  [codepoint bytesprocessed]
-  (Raylib/GetNextCodepoint codepoint bytesprocessed))
+(defn get-codepoint
+  [codepoint codepointsize]
+  (Raylib/GetCodepoint codepoint codepointsize))
 
 (defn codepoint-to-utf8
   [codepoint bytelength]
-  (Raylib/CodepointToUtf8 codepoint bytelength))
+  (Raylib/CodepointToUTF8 codepoint bytelength))
 
 (defn draw-line-3d!
   [spos epos color]
@@ -1503,9 +1584,9 @@
   ([pos size color]
    (Raylib/DrawCubeWiresV (Vector3$ByValue. pos) (Vector3$ByValue. size) (Color$ByValue. color))))
 
-(defn draw-cube-texture!
-  [texture pos w h len color]
-  (Raylib/DrawCubeTexture (Texture2D$ByValue. texture) (Vector3$ByValue. pos) w h len (Color$ByValue. color)))
+; (defn draw-cube-texture!
+;   [texture pos w h len color]
+;   (Raylib/DrawCubeTexture (Texture2D$ByValue. texture) (Vector3$ByValue. pos) w h len (Color$ByValue. color)))
 
 (defn draw-sphere!
   ([centerpos radius color]
@@ -1537,9 +1618,9 @@
   [slices spacing]
   (Raylib/DrawGrid slices spacing))
 
-(defn draw-gizmo!
-  [pos]
-  (Raylib/DrawGizmo (Vector3$ByValue. pos)))
+; (defn draw-gizmo!
+;   [pos]
+;   (Raylib/DrawGizmo (Vector3$ByValue. pos)))
 
 (defn load-model!
   [filename]
@@ -1553,11 +1634,11 @@
   [model]
   (Raylib/UnloadModel (Model$ByValue. model)))
 
-(defn load-meshes!
-  [filename]
-  (let [^IntByReference int-ref (IntByReference.)
-        ans (Raylib/LoadMeshes filename int-ref)]
-    [ans (long (.getValue int-ref))]))
+; (defn load-meshes!
+;   [filename]
+;   (let [^IntByReference int-ref (IntByReference.)
+;         ans (Raylib/LoadMeshes filename int-ref)]
+;     [ans (long (.getValue int-ref))]))
 
 (defn export-mesh!
   [mesh filename]
@@ -1651,21 +1732,21 @@
   [cubicmap cubesize]
   (Raylib/GenMeshCubicmap (Image$ByValue. cubicmap) (Vector3$ByValue. cubesize)))
 
-(defn mesh-bounding-box
+(defn get-mesh-bounding-box
   [mesh]
-  (Raylib/MeshBoundingBox (Mesh$ByValue. mesh)))
+  (Raylib/GetMeshBoundingBox (Mesh$ByValue. mesh)))
 
-(defn mesh-tangents
+(defn gen-mesh-tangents
   [mesh]
   (let [mesh-ref (Mesh$ByReference. mesh)]
-    (Raylib/MeshTangents mesh-ref)
+    (Raylib/GenMeshTangents mesh-ref)
     mesh-ref))
 
-(defn mesh-binormals
-  [mesh]
-  (let [mesh-ref (Mesh$ByReference. mesh)]
-    (Raylib/MeshBinormals mesh-ref)
-    mesh-ref))
+; (defn gen-mesh-binormals
+;   [mesh]
+;   (let [mesh-ref (Mesh$ByReference. mesh)]
+;     (Raylib/GenMeshBinormals mesh-ref)
+;     mesh-ref))
 
 
 (defn draw-model!
@@ -1706,19 +1787,19 @@
   [box center radius]
   (Raylib/CheckCollisionBoxSphere (BoundingBox$ByValue. box) (Vector3$ByValue. center) radius))
 
-(defn check-collision-ray-sphere
+(defn get-ray-collision-sphere
   [ray center radius]
-  (Raylib/CheckCollisionRaySphere (Ray$ByValue. ray) (Vector3$ByValue. center) radius))
+  (Raylib/GetRayCollisionSphere (Ray$ByValue. ray) (Vector3$ByValue. center) radius))
 
-(defn check-collision-ray-sphere-ex
-  [ray center radius collisionpoint]
-  (let [collision-point (Vector3$ByReference.)
-        ans (Raylib/CheckCollisionRaySphereEx (Ray$ByValue. ray) (Vector3$ByValue. center) radius collision-point)]
-    [ans collision-point]))
+; (defn check-collision-ray-sphere-ex
+;   [ray center radius collisionpoint]
+;   (let [collision-point (Vector3$ByReference.)
+;         ans (Raylib/CheckCollisionRaySphereEx (Ray$ByValue. ray) (Vector3$ByValue. center) radius collision-point)]
+;     [ans collision-point]))
 
-(defn check-collision-ray-box
+(defn get-ray-collision-box
   [ray box]
-  (Raylib/CheckCollisionRayBox (Ray$ByValue. ray) (BoundingBox$ByValue. box)))
+  (Raylib/GetRayCollisionBox (Ray$ByValue. ray) (BoundingBox$ByValue. box)))
 
 (defn get-collision-ray-model
   [ray model]
