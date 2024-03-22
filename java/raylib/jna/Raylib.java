@@ -81,6 +81,10 @@ public class Raylib {
     public static native void BeginVrStereoMode(VrStereoConfig.ByValue config);
     public static native void EndVrStereoMode();
 
+    // VR Stereo config functions for VR simulator
+    public static native VrStereoConfig.ByValue LoadVrStereoConfig(VrDeviceInfo.ByValue device);
+    public static native void UnloadVrStereoConfig(VrStereoConfig.ByValue config);
+
     // Screen-space-related functions
     // public static native Ray.ByValue GetMouseRay(Vector2.ByValue mousePosition, Camera3D.ByValue camera);      // Returns a ray trace from mouse position
     public static native Ray.ByValue GetScreenToWorldRay(Vector2.ByValue position, Camera3D.ByValue camera);
@@ -548,7 +552,8 @@ public class Raylib {
 
     // Shader.ByValue loading/unloading functions
     public static native Shader.ByValue LoadShader(String vsFileName, String fsFileName);  // Load shader from files and bind default locations
-    public static native Shader.ByValue LoadShaderCode(String vsCode, String fsCode);      // Load shader from code strings and bind default locations
+    public static native Shader.ByValue LoadShaderFromMemory(String vsCode, String fsCode);      // Load shader from code strings and bind default locations
+    public static native boolean IsShaderReady(Shader.ByValue shader);
     public static native void UnloadShader(Shader.ByValue shader);                                   // Unload shader from GPU memory (VRAM)
 
     public static native Shader.ByValue GetShaderDefault();                                      // Get default shader
@@ -559,6 +564,7 @@ public class Raylib {
 
     // Shader.ByValue configuration functions
     public static native int GetShaderLocation(Shader.ByValue shader, String uniformName);      // Get shader uniform location
+    public static native int GetShaderLocationAttrib(Shader.ByValue shader, String attrName);
     public static native void SetShaderValue(Shader.ByValue shader, int uniformLoc, Pointer value, int uniformType);               // Set shader uniform value
     public static native void SetShaderValueV(Shader.ByValue shader, int uniformLoc, Pointer value, int uniformType, int count);   // Set shader uniform value vector
     public static native void SetShaderValueMatrix(Shader.ByValue shader, int uniformLoc, Matrix.ByValue mat);         // Set shader uniform value (matrix 4x4)

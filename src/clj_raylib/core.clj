@@ -699,6 +699,14 @@
       ~@body
       (Raylib/EndVrStereoMode)))
 
+(defn load-vr-stereo-config
+  [config]
+  (Raylib/LoadVrStereoConfig config))
+
+(defn unload-vr-stereo-config
+  [config]
+  (Raylib/UnloadVrStereoConfig config))
+
 (defn get-screen-to-world-ray
   ([vector2 camera3d]
     (Raylib/GetScreenToWorldRay (Vector2$ByValue. vector2) (Camera3D$ByValue. camera3d)))
@@ -1834,9 +1842,13 @@
   [vs fs]
   (Raylib/LoadShader vs fs))
 
-(defn load-shader-code!
+(defn load-shader-from-memory!
   [vs fs]
-  (Raylib/LoadShaderCode vs fs))
+  (Raylib/LoadShaderFromMemory vs fs))
+
+(defn is-shader-ready?
+  [shader]
+  (Raylib/IsShaderReady shader))
 
 (defn unload-shader!
   [shader]
@@ -1865,6 +1877,10 @@
 (defn get-shader-location
   [shader uniform-name]
   (Raylib/GetShaderLocation (Shader$ByValue. shader) uniform-name))
+
+(defn get-shader-location-attrib
+  [shader attrib-name]
+  (Raylib/GetShaderLocationAttrib (Shader$ByValue. shader) attrib-name))
 
 (defn set-shader-value!
   ([shader uniform-loc value uniform-type]
