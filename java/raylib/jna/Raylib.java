@@ -102,6 +102,11 @@ public class Raylib {
     public static native float GetFrameTime();                                   // Returns time in seconds for last frame drawn
     public static native double GetTime();                                       // Returns elapsed time in seconds since InitWindow()
 
+    // Custom frame control functions
+    public static native void SwapScreenBuffer();
+    public static native void PollInputEvents();
+    public static native void WaitTime(double seconds);
+
     // Color-related functions
     public static native int ColorToInt(Color.ByValue color);                                // Returns hexadecimal value for a Color
     public static native Vector4.ByValue ColorNormalize(Color.ByValue color);                        // Returns color normalized as float [0..1]

@@ -751,6 +751,18 @@
   []
   (Raylib/GetTime))
 
+(defn swap-screen-buffer
+  []
+  (Raylib/SwapScreenBuffer))
+
+(defn poll-input-events
+  []
+  (Raylib/PollInputEvents))
+
+(defn wait-time
+  [seconds]
+  (Raylib/WaitTime seconds))
+
 (defn color-to-int
   [color]
   (Raylib/ColorToInt (Color$ByValue. color)))
