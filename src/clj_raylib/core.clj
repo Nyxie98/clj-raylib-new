@@ -751,6 +751,7 @@
   []
   (Raylib/GetTime))
 
+; Custom frame control functions
 (defn swap-screen-buffer
   []
   (Raylib/SwapScreenBuffer))
@@ -763,6 +764,24 @@
   [seconds]
   (Raylib/WaitTime seconds))
 
+; Random values generation functions
+(defn set-random-seed!
+  [seed]
+  (Raylib/SetRandomSeed seed))
+
+(defn get-random-value
+  [min_ max_]
+  (Raylib/GetRandomValue min_ max_))
+
+(defn load-random-sequence
+  [count min max]
+  (Raylib/LoadRandomSequence count min max))
+
+(defn unload-random-sequence
+  [sequence]
+  (Raylib/UnloadRandomSequence sequence))
+
+; Color-related functions
 (defn color-to-int
   [color]
   (Raylib/ColorToInt (Color$ByValue. color)))
@@ -806,10 +825,6 @@
 (defn take-screenshot!
   [filename]
   (Raylib/TakeScreenshot filename))
-
-(defn get-random-value
-  [min_ max_]
-  (Raylib/GetRandomValue min_ max_))
 
 (defn is-key-pressed?
   [k]

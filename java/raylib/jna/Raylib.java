@@ -107,6 +107,12 @@ public class Raylib {
     public static native void PollInputEvents();
     public static native void WaitTime(double seconds);
 
+    // Random values generation functions
+    public static native void SetRandomSeed(int seed);
+    public static native int GetRandomValue(int min, int max);                       // Returns a random value between min and max (both included)
+    public static native int LoadRandomSequence(int count, int min, int max);
+    public static native void UnloadRandomSequence(int sequence);
+    
     // Color-related functions
     public static native int ColorToInt(Color.ByValue color);                                // Returns hexadecimal value for a Color
     public static native Vector4.ByValue ColorNormalize(Color.ByValue color);                        // Returns color normalized as float [0..1]
@@ -121,7 +127,6 @@ public class Raylib {
     public static native void SetTraceLogLevel(int logType);                         // Set the current threshold (minimum) log level
     // public static native void SetTraceLogExit(int logType);                          // Set the exit threshold (minimum) log level
     public static native void TakeScreenshot(String fileName);                  // Takes a screenshot of current screen (saved a .png)
-    public static native int GetRandomValue(int min, int max);                       // Returns a random value between min and max (both included)
 
     // Files management functions
     //
