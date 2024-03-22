@@ -125,6 +125,7 @@ public class Raylib {
     // Misc. functions
     public static native void SetConfigFlags(int flags);                    // Setup window configuration flags (view FLAGS)
     public static native void SetTraceLogLevel(int logType);                         // Set the current threshold (minimum) log level
+    public static native void OpenURL(String url);
     // public static native void SetTraceLogExit(int logType);                          // Set the exit threshold (minimum) log level
     public static native void TakeScreenshot(String fileName);                  // Takes a screenshot of current screen (saved a .png)
 
@@ -177,12 +178,6 @@ public class Raylib {
     //
     // public static native void SaveStorageValue(int position, int value);    // Save integer value to storage file (to defined position)
     // public static native int LoadStorageValue(int position);                // Load integer value from storage file (from defined position)
-
-    //
-    // Not added to core.clj.
-    // Use java.awt.Desktop.getDesktop().browse(new URI("http://www.example.com"))
-    //
-    public static native void OpenURL(String url);                              // Open URL with default system browser (if available)
 
     //------------------------------------------------------------------------------------
     // Input Handling Functions (Module: core)

@@ -818,6 +818,10 @@
   [log-type]
   (Raylib/SetTraceLogLevel log-type))
 
+(defn open-url
+  [url]
+  (Raylib/OpenURL url))
+
 ; (defn set-trace-log-exit!
 ;   [log-type]
 ;   (Raylib/SetTraceLogExit log-type))
