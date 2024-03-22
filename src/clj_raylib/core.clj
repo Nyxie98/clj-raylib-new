@@ -432,6 +432,7 @@
 (def RAYWHITE (Color$ByValue. (int 245) (int 245) (int 245) (int 255)))
 ;end basic colors
 
+; Window functions
 (defn init-window!
   [width height title]
   (Raylib/InitWindow width height title))
@@ -623,7 +624,9 @@
 (defn disable-event-waiting!
   []
   (Raylib/DisableEventWaiting))
-
+  
+; -------------------------------------- ;
+; Cursor functions
 (defn show-cursor!
   []
   (Raylib/ShowCursor))
@@ -644,6 +647,12 @@
   []
   (Raylib/DisableCursor))
 
+(defn is-cursor-on-screen?
+  []
+  (Raylib/IsCursorOnScreen))
+
+; -------------------------------------- ;
+; Drawing-related functions
 (defn clear-background!
   [color]
   (Raylib/ClearBackground (Color$ByValue. color)))
@@ -682,6 +691,13 @@
      (Raylib/BeginScissorMode ~x ~y ~w ~h)
      ~@body
      (Raylib/EndScissorMode)))
+
+(defmacro with-vr-stereo-mode
+  [config & body]
+  `(do
+      (Raylib/BeginVrStereoMode ~config)
+      ~@body
+      (Raylib/EndVrStereoMode)))
 
 (defn get-screen-to-world-ray
   ([vector2 camera3d]

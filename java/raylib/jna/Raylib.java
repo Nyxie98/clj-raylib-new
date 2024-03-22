@@ -64,6 +64,7 @@ public class Raylib {
     public static native boolean IsCursorHidden();                                  // Check if cursor is not visible
     public static native void EnableCursor();                                    // Enables cursor (unlock cursor)
     public static native void DisableCursor();                                   // Disables cursor (lock cursor)
+    public static native boolean IsCursorOnScreen();
 
     // Drawing-related functions
     public static native void ClearBackground(Color.ByValue color);                          // Set background color (framebuffer clear color)
@@ -77,6 +78,8 @@ public class Raylib {
     public static native void EndTextureMode();                                  // Ends drawing to render texture
     public static native void BeginScissorMode(int x, int y, int width, int height); // Begin scissor mode (define screen area for following drawing)
     public static native void EndScissorMode();                                  // End scissor mode
+    public static native void BeginVrStereoMode(VrStereoConfig.ByValue config);
+    public static native void EndVrStereoMode();
 
     // Screen-space-related functions
     // public static native Ray.ByValue GetMouseRay(Vector2.ByValue mousePosition, Camera3D.ByValue camera);      // Returns a ray trace from mouse position
