@@ -184,6 +184,8 @@ public class Raylib {
     //
     public static native String CompressData(String data, int dataLength, IntByReference compDataLength);        // Compress data (DEFLATE algorythm)
     public static native String DecompressData(String compData, int compDataLength, IntByReference dataLength);  // Decompress data (DEFLATE algorythm)
+    public static native String EncodeDataBase64(String data, int dataSize, int outputSize);
+    public static native String DecodeDataBase64(String data, int outputSize);
 
     // Persistent storage management
     //
