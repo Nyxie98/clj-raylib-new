@@ -267,6 +267,7 @@ public class Raylib {
     // public static native void SetCameraMode(Camera3D.ByValue camera, int mode);                // Set camera mode (multiple camera modes available)
     public static native void UpdateCamera(Camera3D.ByReference camera);                          // Update camera position for selected mode
     public static native void UpdateCamera(Camera3D.ByReference camera, int mode);
+    public static native void UpdateCameraPro(Camera3D.ByReference camera, Vector3.ByValue movement, Vector3.ByValue rotation, float zoom);
 
     // public static native void SetCameraPanControl(int panKey);                       // Set camera pan key to combine with mouse movement (free camera)
     // public static native void SetCameraAltControl(int altKey);                       // Set camera alt key to combine with mouse movement (free camera)

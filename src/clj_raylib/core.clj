@@ -1047,6 +1047,10 @@
   (let [camera-by-ref (Camera3D$ByReference. camera3d)]
     (Raylib/UpdateCamera camera-by-ref mode))))
 
+(defn update-camera-pro!
+  [camera3d movement rotation zoom]
+  (let [camera-by-ref (Camera3D$ByReference. camera3d)]
+    (Raylib/UpdateCameraPro camera-by-ref movement rotation zoom)))
 ; (defn set-camera-pan-control!
 ;   [k]
 ;   (Raylib/SetCameraPanControl k))
