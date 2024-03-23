@@ -850,6 +850,10 @@
   [k]
   (Raylib/IsKeyPressed k))
 
+(defn is-key-pressed-repeat?
+  [k]
+  (Raylib/IsKeyPressedRepeat k))
+
 (defn is-key-down?
   [k]
   (Raylib/IsKeyDown k))
@@ -869,6 +873,10 @@
 (defn get-key-pressed
   []
   (Raylib/GetKeyPressed))
+
+(defn get-char-pressed
+  []
+  (Raylib/GetCharPressed))
 
 (defn is-gamepad-available?
   [gamepad]
@@ -910,6 +918,14 @@
   [gamepad axis]
   (Raylib/GetGamepadAxisMovement gamepad axis))
 
+(defn set-gamepad-mappings!
+  [mappings]
+  (Raylib/SetGamepadMappings mappings))
+
+(defn set-gamepad-vibration!
+  [gamepad leftMotor rightMotor]
+  (Raylib/SetGamepadVibration gamepad leftMotor rightMotor))
+
 (defn is-mouse-button-pressed?
   [button]
   (Raylib/IsMouseButtonPressed button))
@@ -938,6 +954,10 @@
   []
   (Raylib/GetMousePosition))
 
+(defn get-mouse-delta
+  []
+  (Raylib/GetMouseDelta))
+
 (defn set-mouse-position!
   [x y]
   (Raylib/SetMousePosition x y))
@@ -954,6 +974,14 @@
   []
   (Raylib/GetMouseWheelMove))
 
+(defn get-mouse-wheel-move-v
+  []
+  (Raylib/GetMouseWheelMoveV))
+
+(defn set-mouse-cursor!
+  [cursor]
+  (Raylib/SetMouseCursor cursor))
+
 (defn get-touch-x
   []
   (Raylib/GetTouchX))
@@ -965,6 +993,10 @@
 (defn get-touch-position
   [index]
   (Raylib/GetTouchPosition index))
+
+(defn get-touch-point-id
+  [index]
+  (Raylib/GetTouchPointId index))
 
 (defn set-gestures-enabled
   [gesture-flags]

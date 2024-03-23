@@ -187,6 +187,8 @@ public class Raylib {
     public static native String EncodeDataBase64(String data, int dataSize, int outputSize);
     public static native String DecodeDataBase64(String data, int outputSize);
 
+    // TODO: Add automation
+
     // Persistent storage management
     //
     // Not added to core.clj.
@@ -202,11 +204,13 @@ public class Raylib {
 
     // Input-related functions: keyboard
     public static native boolean IsKeyPressed(int key);                             // Detect if a key has been pressed once
+    public static native boolean IsKeyPressedRepeat(int key);
     public static native boolean IsKeyDown(int key);                                // Detect if a key is being pressed
     public static native boolean IsKeyReleased(int key);                            // Detect if a key has been released once
     public static native boolean IsKeyUp(int key);                                  // Detect if a key is NOT being pressed
     public static native void SetExitKey(int key);                               // Set a custom key to exit program (default is ESC)
     public static native int GetKeyPressed();                                // Get key pressed, call it multiple times for chars queued
+    public static native int GetCharPressed();
 
     // Input-related functions: gamepads
     public static native boolean IsGamepadAvailable(int gamepad);                   // Detect if a gamepad is available
@@ -219,6 +223,8 @@ public class Raylib {
     public static native int GetGamepadButtonPressed();                      // Get the last gamepad button pressed
     public static native int GetGamepadAxisCount(int gamepad);                   // Return gamepad axis count for a gamepad
     public static native float GetGamepadAxisMovement(int gamepad, int axis);    // Return axis movement value for a gamepad axis
+    public static native int SetGamepadMappings(String mappings);
+    public static native void SetGamepadVibration(int gamepad, float leftMotor, float rightMotor);
 
     // Input-related functions: mouse
     public static native boolean IsMouseButtonPressed(int button);                  // Detect if a mouse button has been pressed once
@@ -228,15 +234,19 @@ public class Raylib {
     public static native int GetMouseX();                                    // Returns mouse position X
     public static native int GetMouseY();                                    // Returns mouse position Y
     public static native Vector2.ByValue GetMousePosition();                         // Returns mouse position XY
+    public static native Vector2.ByValue GetMouseDelta();
     public static native void SetMousePosition(int x, int y);                    // Set mouse position XY
     public static native void SetMouseOffset(int offsetX, int offsetY);          // Set mouse offset
     public static native void SetMouseScale(float scaleX, float scaleY);         // Set mouse scaling
     public static native int GetMouseWheelMove();                            // Returns mouse wheel movement Y
+    public static native Vector2.ByValue GetMouseWheelMoveV();
+    public static native void SetMouseCursor(int cursor);
 
     // Input-related functions: touch
     public static native int GetTouchX();                                    // Returns touch position X for touch point 0 (relative to screen size)
     public static native int GetTouchY();                                    // Returns touch position Y for touch point 0 (relative to screen size)
     public static native Vector2.ByValue GetTouchPosition(int index);                    // Returns touch position XY for a touch point index (relative to screen size)
+    public static native int GetTouchPointId(int index);
 
     //------------------------------------------------------------------------------------
     // Gestures and Touch Handling Functions (Module: gestures)
