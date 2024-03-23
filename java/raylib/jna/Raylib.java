@@ -143,12 +143,16 @@ public class Raylib {
     // will readd them in the future.
     //
     public static native String LoadFileData(String fileName, IntByReference bytesRead);     // Load file data as byte array (read)
+    public static native void UnloadFileData(String data);
     public static native void SaveFileData(String fileName, Pointer data, int bytesToWrite); // Save data to file from byte array (write)
+    public static native boolean ExportDataAsCode(String data, int dataSize, String fileName);
     public static native String LoadFileText(String fileName);                   // Load text data from file (read), returns a '\0' terminated string
+    public static native void UnloadFileText(String text);
     public static native void SaveFileText(String fileName, String text);        // Save text data to file (write), string must be '\0' terminated
     public static native boolean FileExists(String fileName);                      // Check if file exists
     public static native boolean IsFileExtension(String fileName, String ext);// Check file extension
     public static native boolean DirectoryExists(String dirPath);                  // Check if a directory path exists
+    public static native int GetFileLength(String fileName);
     // public static native String GetExtension(String fileName);             // Get pointer to extension for a filename string
     public static native String GetFileExtension(String fileName);             // Get pointer to extension for a filename string
     public static native String GetFileName(String filePath);              // Get pointer to filename for a path string
@@ -156,11 +160,16 @@ public class Raylib {
     public static native String GetDirectoryPath(String filePath);         // Get full path for a given fileName with path (uses static string)
     public static native String GetPrevDirectoryPath(String dirPath);      // Get previous directory path for a given path (uses static string)
     public static native String GetWorkingDirectory();                      // Get current working directory (uses static string)
-    //public static native String[] GetDirectoryFiles(String dirPath, IntByReference count);  // Get filenames in a directory path (memory should be freed)
+    public static native String GetApplicationDirectory();
+    public static native boolean IsPathFile(String path);
+    public static native String[] LoadDirectoryFiles(String dirPath);
+    public static native String[] LoadDirectoryFilesEx(String basePath, String filter, boolean scanSubdirs);
+    // public static native String[] GetDirectoryFiles(String dirPath, IntByReference count);  // Get filenames in a directory path (memory should be freed)
     // public static native void ClearDirectoryFiles();                             // Clear directory files paths buffers (free memory)
     public static native void UnloadDirectoryFiles();
     public static native boolean ChangeDirectory(String dir);                      // Change working directory, returns true if success
     public static native boolean IsFileDropped();                                   // Check if a file has been dropped into window
+    public static native String[] LoadDroppedFiles();
     // public static native String[] GetDroppedFiles(IntByReference count);                         // Get dropped files names (memory should be freed)
     // public static native void ClearDroppedFiles();                               // Clear dropped files paths buffer (free memory)
     public static native void UnloadDroppedFiles();
