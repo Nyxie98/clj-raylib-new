@@ -830,6 +830,22 @@
   [filename]
   (Raylib/TakeScreenshot filename))
 
+(defn trace-log
+  [logLevel text args]
+  (Raylib/TraceLog logLevel text args))
+
+(defn mem-alloc!
+  [size]
+  (Raylib/MemAlloc size))
+
+(defn mem-realloc!
+  [ptr size]
+  (Raylib/MemRealloc ptr size))
+
+(defn mem-free!
+  [ptr]
+  (Raylib/MemFree ptr))
+
 (defn is-key-pressed?
   [k]
   (Raylib/IsKeyPressed k))

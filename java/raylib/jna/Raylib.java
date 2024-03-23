@@ -124,10 +124,16 @@ public class Raylib {
 
     // Misc. functions
     public static native void SetConfigFlags(int flags);                    // Setup window configuration flags (view FLAGS)
-    public static native void SetTraceLogLevel(int logType);                         // Set the current threshold (minimum) log level
     public static native void OpenURL(String url);
     // public static native void SetTraceLogExit(int logType);                          // Set the exit threshold (minimum) log level
     public static native void TakeScreenshot(String fileName);                  // Takes a screenshot of current screen (saved a .png)
+
+    // Modules
+    public static native void TraceLog(int logLevel, String text, Object args);
+    public static native void SetTraceLogLevel(int logType);                         // Set the current threshold (minimum) log level
+    public static native Pointer MemAlloc(int size);
+    public static native void MemRealloc(Pointer ptr, int size);
+    public static native void MemFree(Pointer ptr);
 
     // Files management functions
     //
