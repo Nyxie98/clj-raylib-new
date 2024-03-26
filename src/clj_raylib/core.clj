@@ -1371,6 +1371,14 @@
   [w h density inner outer]
   (Raylib/GenImageGradientRadial w h density (Color$ByValue. inner) (Color$ByValue. outer)))
 
+(defn gen-image-gradient-linear
+  [w h direction start end]
+  (Raylib/GenImageGradientLinear w h direction (Color$ByValue. start) (Color$ByValue. end)))
+
+(defn gen-image-gradient-square
+  [w h density inner outer]
+  (Raylib/GenImageGradientSquare w h density (Color$ByValue. inner) (Color$ByValue. outer)))
+
 (defn gen-image-checked
   [w h checksx checksy col1 col2]
   (Raylib/GenImageChecked w h checksx checksy (Color$ByValue. col1) (Color$ByValue. col2)))
@@ -1386,6 +1394,10 @@
 (defn gen-image-cellular
   [w h tilesize]
   (Raylib/GenImageCellular w h tilesize))
+
+(defn gen-image-text
+  [w h text]
+  (Raylib/GenImageText w h text))
 
 (defn image-copy
   [img]

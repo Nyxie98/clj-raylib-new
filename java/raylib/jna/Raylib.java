@@ -373,10 +373,13 @@ public class Raylib {
     // public static native Image.ByValue GenImageGradientV(int width, int height, Color.ByValue top, Color.ByValue bottom);                           // Generate image: vertical gradient
     // public static native Image.ByValue GenImageGradientH(int width, int height, Color.ByValue left, Color.ByValue right);                           // Generate image: horizontal gradient
     public static native Image.ByValue GenImageGradientRadial(int width, int height, float density, Color.ByValue inner, Color.ByValue outer);      // Generate image: radial gradient
+    public static native Image.ByValue GenImageGradientLinear(int width, int height, int direction, Color.ByValue start, Color.ByValue end);
+    public static native Image.ByValue GenImageGradientSquare(int width, int height, float density, Color.ByValue inner, Color.ByValue outer);
     public static native Image.ByValue GenImageChecked(int width, int height, int checksX, int checksY, Color.ByValue col1, Color.ByValue col2);    // Generate image: checked
     public static native Image.ByValue GenImageWhiteNoise(int width, int height, float factor);                                     // Generate image: white noise
     public static native Image.ByValue GenImagePerlinNoise(int width, int height, int offsetX, int offsetY, float scale);           // Generate image: perlin noise
     public static native Image.ByValue GenImageCellular(int width, int height, int tileSize);                                       // Generate image: cellular algorithm. Bigger tileSize means bigger cells
+    public static native Image.ByValue GenImageText(int width, int height, String text);
 
     // Image.ByValue manipulation functions
     public static native Image.ByValue ImageCopy(Image.ByValue image);                                                                      // Create an image duplicate (useful for transformations)
