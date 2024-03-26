@@ -292,6 +292,7 @@ public class Raylib {
     public static native void DrawCircleGradient(int centerX, int centerY, float radius, Color.ByValue color1, Color.ByValue color2);       // Draw a gradient-filled circle
     public static native void DrawCircleV(Vector2.ByValue center, float radius, Color.ByValue color);                                       // Draw a color-filled circle (Vector version)
     public static native void DrawCircleLines(int centerX, int centerY, float radius, Color.ByValue color);                         // Draw circle outline
+    public static native void DrawCircleLinesV(Vector2.ByValue center, float radius, Color.ByValue color);
     public static native void DrawEllipse(int centerX, int centerY, float radiusH, float radiusV, Color.ByValue color);             // Draw ellipse
     public static native void DrawEllipseLines(int centerX, int centerY, float radiusH, float radiusV, Color.ByValue color);        // Draw ellipse outline
     public static native void DrawRing(Vector2.ByValue center, float innerRadius, float outerRadius, int startAngle, int endAngle, int segments, Color.ByValue color); // Draw ring
@@ -313,6 +314,24 @@ public class Raylib {
     public static native void DrawTriangleStrip(Vector2.ByReference points, int pointsCount, Color.ByValue color);                             // Draw a triangle strip defined by points
     public static native void DrawPoly(Vector2.ByValue center, int sides, float radius, float rotation, Color.ByValue color);               // Draw a regular polygon (Vector version)
     public static native void DrawPolyLines(Vector2.ByValue center, int sides, float radius, float rotation, Color.ByValue color);          // Draw a polygon outline of n sides
+    public static native void DrawPolyLinesEx(Vector2.ByValue center, int sides, float radius, float rotation, float lineThick, Color.ByValue color);
+    public static native void DrawSplineLinear(Vector2.ByReference points, int pointCount, float thick, Color.ByValue color);
+    public static native void DrawSplineBasis(Vector2.ByReference points, int pointCount, float thick, Color.ByValue color);
+    public static native void DrawSplineCatmullRom(Vector2.ByReference points, int pointCount, float thick, Color.ByValue color);
+    public static native void DrawSplineBezierQuadratic(Vector2.ByReference points, int pointCount, float thick, Color.ByValue color);
+    public static native void DrawSplineBezierCubic(Vector2.ByReference points, int pointCount, float thick, Color.ByValue color);
+    public static native void DrawSplineSegmentLinear(Vector2.ByValue p1, Vector2.ByValue p2, float thick, Color.ByValue color);
+    public static native void DrawSplineSegmentBasis(Vector2.ByValue p1, Vector2.ByValue p2, Vector2.ByValue p3, Vector2.ByValue p4, float thick, Color.ByValue color);
+    public static native void DrawSplineSegmentCatmullRom(Vector2.ByValue p1, Vector2.ByValue p2, Vector2.ByValue p3, Vector2.ByValue p4, float thick, Color.ByValue color);
+    public static native void DrawSplineSegmentBezierQuadratic(Vector2.ByValue p1, Vector2.ByValue c2, Vector2.ByValue p3, float thick, Color.ByValue color);
+    public static native void DrawSplineSegmentBezierCubic(Vector2.ByValue p1, Vector2.ByValue c2, Vector2.ByValue c3, Vector2.ByValue p4, float thick, Color.ByValue color);
+
+    // Spline segment point evaluation functions
+    public static native Vector2.ByValue GetSplinePointLinear(Vector2.ByValue startPos, Vector2.ByValue endPos, float t);
+    public static native Vector2.ByValue GetSplinePointBasis(Vector2.ByValue p1, Vector2.ByValue p2, Vector2.ByValue p3, Vector2.ByValue p4, float t);
+    public static native Vector2.ByValue GetSplinePointCatmullRom(Vector2.ByValue p1, Vector2.ByValue p2, Vector2.ByValue p3, Vector2.ByValue p4, float t);
+    public static native Vector2.ByValue GetSplinePointBezierQuad(Vector2.ByValue p1, Vector2.ByValue c2, Vector2.ByValue p3, float t);
+    public static native Vector2.ByValue GetSplinePointBezierCubic(Vector2.ByValue p1, Vector2.ByValue c2, Vector2.ByValue c3, Vector2.ByValue p4, float t);
 
     // Basic shapes collision detection functions
     public static native boolean CheckCollisionRecs(Rectangle.ByValue rec1, Rectangle.ByValue rec2);                                           // Check collision between two rectangles
@@ -592,7 +611,7 @@ public class Raylib {
     public static native Shader.ByValue GetShaderDefault();                                      // Get default shader
     public static native Texture2D.ByValue GetTextureDefault();                                  // Get default texture
     public static native Texture2D.ByValue GetShapesTexture();                                   // Get texture to draw shapes
-    public static native Rectangle.ByValue GetShapesTextureRec();                                // Get texture rectangle to draw shapes
+    public static native Rectangle.ByValue GetShapesTextureRectangle();                                // Get texture rectangle to draw shapes
     public static native void SetShapesTexture(Texture2D.ByValue texture, Rectangle.ByValue source);         // Define default texture used to draw shapes
 
     // Shader.ByValue configuration functions

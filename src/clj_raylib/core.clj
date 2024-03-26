@@ -1108,8 +1108,10 @@
   (Raylib/DrawCircleGradient centerx centery radius (Color$ByValue. color1) (Color$ByValue. color2)))
 
 (defn draw-circle-lines!
-  [centerx centery radius color]
+  ([centerx centery radius color]
   (Raylib/DrawCircleLines centerx centery radius (Color$ByValue. color)))
+  ([center radius color]
+  (Raylib/DrawCircleLinesV center radius color)))
 
 (defn draw-ellipse!
   [centerx centery radiush radiusv color]
@@ -1190,8 +1192,66 @@
   (Raylib/DrawPoly (Vector2$ByValue. center) sides radius rotation (Color$ByValue. color)))
 
 (defn draw-poly-lines!
-  [center sides radius rotation color]
+  ([center sides radius rotation color]
   (Raylib/DrawPolyLines (Vector2$ByValue. center) sides radius rotation (Color$ByValue. color)))
+  ([center sizes radius rotation lineThick color]
+  (Raylib/DrawPolyLinesEx (Vector2$ByValue. center) sides radius rotation lineThick (Color$ByValue. color))))
+
+(defn draw-spline-linear
+  [points point-count thick color]
+  (Raylib/DrawSplineLinear (Vector2$ByReference. points) point-count thick (Color$ByValue. color)))
+
+(defn draw-spline-basis
+  [points point-count thick color]
+  (Raylib/DrawSplineBasis (Vector2$ByReference. points) point-count thick (Color$ByValue. color)))
+
+(defn draw-spline-catmull-rom
+  [points point-count thick color]
+  (Raylib/DrawSplineCatmullRom (Vector2$ByReference. points) point-count thick (Color$ByValue. color)))
+
+(defn draw-spline-bezier-quadratic
+  [points point-count thick color]
+  (Raylib/DrawSplineBezierQuadratic (Vector2$ByReference. points) point-count thick (Color$ByValue. color)))
+
+(defn draw-spline-bezier-cubic
+  [points point-count thick color]
+  (Raylib/DrawSplineBezierCubic (Vector2$ByReference. points) point-count thick (Color$ByValue. color)))
+
+(defn draw-spline-segment-linear
+  [p1 p2 thick count]
+  (Raylib/DrawSplineSegmentLinear (Vector2$ByValue. p1) (Vector2$ByValue. p2) thick (Color$ByValue. color)))
+
+(defn draw-spline-segment-basis
+  [p1 p2 p3 p4 thick count]
+  (Raylib/DrawSplineSegmentBasis (Vector2$ByValue. p1) (Vector2$ByValue. p2) (Vector2$ByValue. p3) (Vector2$ByValue. p4) thick (Color$ByValue. color)))
+
+(defn draw-spline-segment-catmull-rom
+  [p1 p2 p3 p4 thick count]
+  (Raylib/DrawSplineSegmentCatmullRom (Vector2$ByValue. p1) (Vector2$ByValue. p2) (Vector2$ByValue. p3) (Vector2$ByValue. p4) thick (Color$ByValue. color)))
+
+(defn draw-spline-segment-bezier
+  ([p1 c2 p3 thick count]
+  (Raylib/DrawSplineSegmentBezierQuadratic (Vector2$ByValue. p1) (Vector2$ByValue. c2) (Vector2$ByValue. p3) thick (Color$ByValue. color)))
+  ([p1 c2 c3 p4 thick count]
+  (Raylib/DrawSplineSegmentBezierCubic (Vector2$ByValue. p1) (Vector2$ByValue. c2) (Vector2$ByValue. c3) (Vector2$ByValue. p4) thick (Color$ByValue. color))))
+
+(defn get-spline-point-linear
+  [start-pos end-pos t]
+  (Raylib/GetSplinePointLinear (Vector2$ByValue. start-pos) (Vector2$ByValue. end-pos) t))
+
+(defn get-spline-point-basis
+  [p1 p2 p3 p4 t]
+  (Raylib/GetSplinePointBasis (Vector2$ByValue. p1) (Vector2$ByValue. p2) (Vector2$ByValue. p3) (Vector2$ByValue. p4) t))
+
+(defn get-spline-point-catmull-rom
+  [p1 p2 p3 p4 t]
+  (Raylib/GetSplinePointCatmullRom (Vector2$ByValue. p1) (Vector2$ByValue. p2) (Vector2$ByValue. p3) (Vector2$ByValue. p4) t))
+
+(defn get-spline-point-bezier
+  ([p1 c2 p3 t]
+  (Raylib/GetSplinePointBezierQuad (Vector2$ByValue. p1) (Vector2$ByValue. c2) (Vector2$ByValue. p3) t))
+  ([p1 c2 c3 p4 t]
+  (Raylib/GetSplinePointBezierCubic (Vector2$ByValue. p1) (Vector2$ByValue. c2) (Vector2$ByValue. c3) (Vector2$ByValue. p4) t)))
 
 (defn check-collision-recs?
   [rec1 rec2]
@@ -1949,9 +2009,9 @@
   []
   (Raylib/GetShapesTexture))
 
-(defn get-shapes-texture-rec
+(defn get-shapes-texture-rectangle
   []
-  (Raylib/GetShapesTextureRec))
+  (Raylib/GetShapesTextureRectangle))
 
 (defn set-shapes-texture!
   [texture source]
