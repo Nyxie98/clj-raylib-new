@@ -341,6 +341,9 @@ public class Raylib {
     public static native boolean CheckCollisionPointRec(Vector2.ByValue point, Rectangle.ByValue rec);                                         // Check if point is inside rectangle
     public static native boolean CheckCollisionPointCircle(Vector2.ByValue point, Vector2.ByValue center, float radius);                       // Check if point is inside circle
     public static native boolean CheckCollisionPointTriangle(Vector2.ByValue point, Vector2.ByValue p1, Vector2.ByValue p2, Vector2.ByValue p3);               // Check if point is inside a triangle
+    public static native boolean CheckCollisionPointPoly(Vector2.ByValue point, Vector2.ByReference points, int pointCount);
+    public static native boolean CheckCollisionLines(Vector2.ByValue startPos1, Vector2.ByValue endPos1, Vector2.ByValue startPos2, Vector2.ByValue endPos2, Vector2.ByReference collisionPoint);
+    public static native boolean CheckCollisionPointLine(Vector2.ByValue point, Vector2.ByValue p1, Vector2.ByValue p2, int threshold);
 
     //------------------------------------------------------------------------------------
     // Texture Loading and Drawing Functions (Module: textures)

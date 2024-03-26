@@ -1281,6 +1281,20 @@
   [point p1 p2 p3]
   (Raylib/CheckCollisionPointTriangle (Vector2$ByValue. point) (Vector2$ByValue. p1) (Vector2$ByValue. p2) (Vector2$ByValue. p3)))
 
+(defn check-collision-point-poly?
+  [point points point-count]
+  (let [points-list (Vector2$ByReference. points)]
+    (Raylib/CheckCollisionPointPoly (Vector2$ByValue. point) points-list point-count)))
+
+(defn check-collision-lines?
+  [start-pos-1 end-pos-1 start-pos-2 end-pos-2 collision-point]
+  (let [collision-ref (Vector2$ByReference. collision-point)]
+    (Raylib/CheckCollisionLines (Vector2$ByValue. start-pos-1) (Vector2$ByValue. end-pos-1) (Vector2$ByValue. start-pos-2) (Vector2$ByValue. end-pos-2) collision-ref)))
+
+(defn check-collision-point-line?
+  [point p1 p2 threshold]
+  (Raylib/CheckCollisionPointLine (Vector2$ByValue. point) (Vector2$ByValue. p1) (Vector2$ByValue. p2) threshold))
+
 (defn load-image!
   [file-name]
   (Raylib/LoadImage file-name))
