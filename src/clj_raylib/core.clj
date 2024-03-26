@@ -1311,6 +1311,22 @@
   [filename w h format header-size]
   (Raylib/LoadImageRaw filename w h format header-size))
 
+(defn load-image-svg!
+  [filename w h]
+  (Raylib/LoadImageSvg filename w h))
+
+(defn load-image-anim!
+  [filename frames]
+  (Raylib/LoadImageAnim filename frames))
+
+(defn load-image-anim-from-memory
+  [filetype filedata datasize frames]
+  (Raylib/LoadImageAnimFromMemory filetype filedata datasize frames))
+
+(defn load-image-from-memory
+  [filetype filedata datasize frames]
+  (Raylib/LoadImageFromMemory filetype filedata datasize))
+
 (defn unload-image!
   [img]
   (Raylib/UnloadImage (Image$ByValue. img)))
@@ -1319,6 +1335,10 @@
   [img filename]
   (Raylib/ExportImage (Image$ByValue. img) filename))
 
+(defn export-image-to-memory!
+  [image filetype filesize]
+  (Raylib/ExportImageToMemory image filetype filesize))
+
 (defn export-image-as-code!
   [img filename]
   (Raylib/ExportImageAsCode (Image$ByValue. img) filename))
@@ -1326,6 +1346,10 @@
 (defn load-image-colors
   [img]
   (Raylib/LoadImageColors (Image$ByValue. img)))
+
+(defn is-image-ready?
+  [image]
+  (Raylib/IsImageReady image))
 
 ; (defn get-image-data-normalized
 ;   [img]

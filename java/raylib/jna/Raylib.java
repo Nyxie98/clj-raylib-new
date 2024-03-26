@@ -355,12 +355,18 @@ public class Raylib {
     // public static native Image.ByValue LoadImageEx(Color.ByReference pixels, int width, int height);                                           // Load image from Color.ByValue array data (RGBA - 32bit)
     // public static native Image.ByValue LoadImagePro(Pointer data, int width, int height, int format);                                 // Load image from raw data with parameters
     public static native Image.ByValue LoadImageRaw(String fileName, int width, int height, int format, int headerSize);       // Load image from RAW file data
+    public static native Image.ByValue LoadImageSvg(String fileName, int width, int height);
+    public static native Image.ByValue LoadImageAnim(String fileName, Pointer frames);
+    public static native Image.ByValue LoadImageAnimFromMemory(String fileType, String fileData, int dataSize, Pointer frames);
+    public static native Image.ByValue LoadImageFromMemory(String fileType, String fileData, int dataSize);
     public static native void UnloadImage(Image.ByValue image);                                                                     // Unload image from CPU memory (RAM)
     public static native void ExportImage(Image.ByValue image, String fileName);                                               // Export image data to file
+    public static native String ExportImageToMemory(Image.ByValue image, String fileType, Pointer fileSize);
     public static native void ExportImageAsCode(Image.ByValue image, String fileName);                                         // Export image as code file defining an array of bytes
     // public static native Color.ByReference GetImageData(Image.ByValue image);                                                                  // Get pixel data from image as a Color.ByValue struct array
     public static native Color.ByReference LoadImageColors(Image.ByValue image);
     // public static native Vector4.ByReference GetImageDataNormalized(Image.ByValue image);                                                      // Get pixel data from image as Vector4.ByValue array (float normalized)
+    public static native boolean IsImageReady(Image.ByValue image);
 
     // Image.ByValue generation functions
     public static native Image.ByValue GenImageColor(int width, int height, Color.ByValue color);                                           // Generate image: plain color
